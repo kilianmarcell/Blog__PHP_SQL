@@ -19,12 +19,22 @@ class Bejegyzes {
         ]);
     }
 
+    public function getId() : ?int { // ? -> int-nek lehet 0 is az értéke
+        return $this -> id;
+    }
+
     public function getTartalom() : string {
         return $this -> tartalom;
     }
 
     public function getDatum() : DateTime {
         return $this -> datum;
+    }
+
+    public static function torol(int $id) {
+        global $db;
+
+        $db -> prepare('DELETE FROM bejegyzesek WHERE id = :id') -> execute([':id' => id]);
     }
 
     public static function osszes() : array {

@@ -3,11 +3,16 @@ require_once 'db.php';
 require_once 'Bejegyzes.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    //Ide jön a validáció
-    $ujTartalom = $_POST['tartalom'] ?? '';
-
-    $ujBejegyzes = new Bejegyzes($ujTartalom, new DateTime());
-    $ujBejegyzes -> uj();
+    $deleteId = $_POST['deleteId'] ?? '';
+    if ($deleteId !== '') {
+        Bejegyzes::torol($deleteId);
+    } else {
+        //Ide jön a validáció
+        $ujTartalom = $_POST['tartalom'] ?? '';
+    
+        $ujBejegyzes = new Bejegyzes($ujTartalom, new DateTime());
+        $ujBejegyzes -> uj();
+    }
 }
 
 $bejegyzesek = Bejegyzes::osszes();
@@ -23,7 +28,7 @@ $bejegyzesek = Bejegyzes::osszes();
 <body>
     <form method="POST">
         <div>
-            <textarea name="tartalom" cols="30" rows="10"></textarea>
+            <textarea name="tartalom"></textarea>
         </div>
         <div>
             <input type="submit" name="" value="Új bejegyzés">
@@ -35,7 +40,9 @@ $bejegyzesek = Bejegyzes::osszes();
             echo "<article>";
             echo "<h2>" . $bejegyzes -> getDatum() -> format('Y-m-d H:i:s') . "</h2>";
             echo "<p>" . $bejegyzes -> getTartalom() . "</p>";
-            echo "<button type='submit'>Törlés</button>";
+            echo "<form method='POST'>";
+            echo "<input type='hidden' name='deleteId' value='" . $bejegyzes.getId() . "'>";
+            echo "<button type='submit'>Törlés</button></form>";
             echo "</article>";
         }
     ?>
