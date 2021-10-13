@@ -13,9 +13,9 @@ class Bejegyzes {
 
         foreach ($t as $elem) {
             $bejegyzes = new Bejegyzes();
-            $bejegyzes -> id = $t['id'];
-            $bejegyzes -> tartalom = $t['tartalom'];
-            $bejegyzes -> datum = new DateTime($t('datum'));
+            $bejegyzes -> id = $elem['id'];
+            $bejegyzes -> tartalom = $elem['tartalom'];
+            $bejegyzes -> datum = new DateTime($elem['datum']);
             $eredmeny[] = $bejegyzes;
         }
 

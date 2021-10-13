@@ -1,4 +1,8 @@
 <?php
+require_once 'db.php';
+require_once 'Bejegyzes.php';
+
+$bejegyzesek = Bejegyzes::osszes();
 
 ?><!DOCTYPE html>
 <html lang="en">
@@ -9,6 +13,8 @@
     <title>Blog</title>
 </head>
 <body>
-    
+    <?php
+        var_dump($bejegyzesek);
+    ?>
 </body>
 </html>
