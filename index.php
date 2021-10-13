@@ -14,7 +14,13 @@ $bejegyzesek = Bejegyzes::osszes();
 </head>
 <body>
     <?php
-        var_dump($bejegyzesek);
+        //var_dump($bejegyzesek); mindent kiír, tesztelésre használjuk
+        foreach ($bejegyzesek as $bejegyzes) {
+            echo "<article>";
+            echo "<h2>" . $bejegyzes -> getDatum() -> format('Y-m-d H:i:s') . "</h2>";
+            echo "<p>" . $bejegyzes -> getTartalom() . "</p>";
+            echo "</article>";
+        }
     ?>
 </body>
 </html>

@@ -4,6 +4,14 @@ class Bejegyzes {
     private $tartalom;
     private $datum;
 
+    public function getTartalom() : string {
+        return $this -> tartalom;
+    }
+
+    public function getDatum() : DateTime {
+        return $this -> datum;
+    }
+
     public static function osszes() : array {
         //Későbbiekben nem jó ez a megoldás...
         global $db;
