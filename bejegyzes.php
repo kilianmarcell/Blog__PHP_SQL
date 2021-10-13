@@ -4,6 +4,21 @@ class Bejegyzes {
     private $tartalom;
     private $datum;
 
+    public function __construct(string $tartalom, DateTime $datum) {
+        $this -> tartalom = $tartalom;
+        $this -> datum = $datum;
+    }
+
+    public function uj() {
+        global $db;
+
+        $db -> prepare('INSERT INTO bejegyzesek (tartalom, datum) VALUES (:tartalom, :datum')
+            -> execute([
+                ':tartalom' => $this -> tartalom,
+                ':datum' => $this -> datum -> format('Y-m-d H:i:s')
+        ]);
+    }
+
     public function getTartalom() : string {
         return $this -> tartalom;
     }
@@ -20,10 +35,9 @@ class Bejegyzes {
         $eredmeny = [];
 
         foreach ($t as $elem) {
-            $bejegyzes = new Bejegyzes();
+            $bejegyzes =    new Bejegyzes($elem['tartalom'],
+                            new DateTime($elem['datum']));
             $bejegyzes -> id = $elem['id'];
-            $bejegyzes -> tartalom = $elem['tartalom'];
-            $bejegyzes -> datum = new DateTime($elem['datum']);
             $eredmeny[] = $bejegyzes;
         }
 
